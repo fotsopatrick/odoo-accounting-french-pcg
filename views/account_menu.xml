@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu Principal -->
+    <menuitem id="accounting_menu_root"
+              name="Comptabilite"
+              web_icon="accounting_custom,static/description/icon.png"
+              sequence="25"
+              groups="base.group_user"/>
+
+    <!-- Tableau de bord -->
+    <menuitem id="menu_accounting_dashboard"
+              name="Tableau de bord"
+              parent="accounting_menu_root"
+              sequence="1"
+              action="action_account_journal"/>
+
+    <!-- Clients -->
+    <menuitem id="menu_accounting_customers"
+              name="Clients"
+              parent="accounting_menu_root"
+              sequence="10"/>
+
+    <menuitem id="menu_accounting_customers_invoices"
+              name="Factures"
+              parent="menu_accounting_customers"
+              action="action_account_invoice_out"
+              sequence="10"/>
+
+    <menuitem id="menu_accounting_customers_payments"
+              name="Paiements recus"
+              parent="menu_accounting_customers"
+              action="action_account_payment_inbound"
+              sequence="20"/>
+
+    <!-- Fournisseurs -->
+    <menuitem id="menu_accounting_vendors"
+              name="Fournisseurs"
+              parent="accounting_menu_root"
+              sequence="20"/>
+
+    <menuitem id="menu_accounting_vendors_invoices"
+              name="Factures"
+              parent="menu_accounting_vendors"
+              action="action_account_invoice_in"
+              sequence="10"/>
+
+    <menuitem id="menu_accounting_vendors_payments"
+              name="Paiements envoyes"
+              parent="menu_accounting_vendors"
+              action="action_account_payment_outbound"
+              sequence="20"/>
+
+    <!-- Comptabilite -->
+    <menuitem id="menu_accounting_entries"
+              name="Comptabilite"
+              parent="accounting_menu_root"
+              sequence="30"/>
+
+    <menuitem id="menu_accounting_entries_journal"
+              name="Ecritures"
+              parent="menu_accounting_entries"
+              action="action_account_move"
+              sequence="10"/>
+
+    <menuitem id="menu_accounting_entries_lines"
+              name="Lignes d'ecritures"
+              parent="menu_accounting_entries"
+              action="action_account_move_line"
+              sequence="20"/>
+
+    <menuitem id="menu_accounting_entries_reconcile"
+              name="Lettrages"
+              parent="menu_accounting_entries"
+              action="action_account_full_reconcile"
+              sequence="30"/>
+
+    <!-- Banque -->
+    <menuitem id="menu_accounting_bank"
+              name="Banque"
+              parent="accounting_menu_root"
+              sequence="40"/>
+
+    <menuitem id="menu_accounting_bank_statements"
+              name="Releves bancaires"
+              parent="menu_accounting_bank"
+              action="action_account_bank_statement"
+              sequence="10"/>
+
+    <menuitem id="menu_accounting_bank_reconcile_models"
+              name="Modeles de lettrage"
+              parent="menu_accounting_bank"
+              action="action_account_reconcile_model"
+              sequence="20"/>
+
+    <!-- Analytique -->
+    <menuitem id="menu_accounting_analytic"
+              name="Analytique"
+              parent="accounting_menu_root"
+              sequence="50"/>
+
+    <menuitem id="menu_accounting_analytic_plans"
+              name="Plans analytiques"
+              parent="menu_accounting_analytic"
+              action="action_account_analytic_plan"
+              sequence="10"/>
+
+    <menuitem id="menu_accounting_analytic_accounts"
+              name="Comptes analytiques"
+              parent="menu_accounting_analytic"
+              action="action_account_analytic_account"
+              sequence="20"/>
+
+    <menuitem id="menu_accounting_analytic_lines"
+              name="Lignes analytiques"
+              parent="menu_accounting_analytic"
+              action="action_account_analytic_line"
+              sequence="30"/>
+
+    <menuitem id="menu_accounting_analytic_tags"
+              name="Tags"
+              parent="menu_accounting_analytic"
+              action="action_account_analytic_tag"
+              sequence="40"/>
+
+    <!-- Budget -->
+    <menuitem id="menu_accounting_budget"
+              name="Budget"
+              parent="accounting_menu_root"
+              sequence="60"/>
+
+    <menuitem id="menu_accounting_budget_list"
+              name="Budgets"
+              parent="menu_accounting_budget"
+              action="action_account_budget"
+              sequence="10"/>
+
+    <menuitem id="menu_accounting_budget_posts"
+              name="Postes budgetaires"
+              parent="menu_accounting_budget"
+              action="action_account_budget_post"
+              sequence="20"/>
+
+    <!-- Rapports -->
+    <menuitem id="menu_accounting_reports"
+              name="Rapports"
+              parent="accounting_menu_root"
+              sequence="70"/>
+
+    <!-- Configuration -->
+    <menuitem id="menu_accounting_config"
+              name="Configuration"
+              parent="accounting_menu_root"
+              sequence="100"/>
+
+    <!-- Configuration - Comptes -->
+    <menuitem id="menu_accounting_config_accounts"
+              name="Comptes"
+              parent="menu_accounting_config"
+              sequence="10"/>
+
+    <menuitem id="menu_accounting_config_chart"
+              name="Plan comptable"
+              parent="menu_accounting_config_accounts"
+              action="action_account_account"
+              sequence="10"/>
+
+    <menuitem id="menu_accounting_config_tags"
+              name="Tags de compte"
+              parent="menu_accounting_config_accounts"
+              action="action_account_tag"
+              sequence="20"/>
+
+    <!-- Configuration - Journaux -->
+    <menuitem id="menu_accounting_config_journals"
+              name="Journaux"
+              parent="menu_accounting_config"
+              action="action_account_journal"
+              sequence="20"/>
+
+    <!-- Configuration - Taxes -->
+    <menuitem id="menu_accounting_config_taxes"
+              name="Taxes"
+              parent="menu_accounting_config"
+              sequence="30"/>
+
+    <menuitem id="menu_accounting_config_taxes_list"
+              name="Taxes"
+              parent="menu_accounting_config_taxes"
+              action="action_account_tax"
+              sequence="10"/>
+
+    <menuitem id="menu_accounting_config_tax_tags"
+              name="Tags de taxe"
+              parent="menu_accounting_config_taxes"
+              action="action_account_tax_tag"
+              sequence="20"/>
+
+    <!-- Configuration - Paiements -->
+    <menuitem id="menu_accounting_config_payments"
+              name="Paiements"
+              parent="menu_accounting_config"
+              sequence="40"/>
+
+    <menuitem id="menu_accounting_config_payment_terms"
+              name="Conditions de paiement"
+              parent="menu_accounting_config_payments"
+              action="action_account_payment_term"
+              sequence="10"/>
+
+    <menuitem id="menu_accounting_config_payment_methods"
+              name="Methodes de paiement"
+              parent="menu_accounting_config_payments"
+              action="action_account_payment_method"
+              sequence="20"/>
+
+    <!-- Configuration - Fiscal -->
+    <menuitem id="menu_accounting_config_fiscal"
+              name="Fiscal"
+              parent="menu_accounting_config"
+              sequence="50"/>
+
+    <menuitem id="menu_accounting_config_fiscal_years"
+              name="Exercices fiscaux"
+              parent="menu_accounting_config_fiscal"
+              action="action_account_fiscal_year"
+              sequence="10"/>
+
+    <menuitem id="menu_accounting_config_periods"
+              name="Periodes"
+              parent="menu_accounting_config_fiscal"
+              action="action_account_period"
+              sequence="20"/>
+
+    <menuitem id="menu_accounting_config_fiscal_positions"
+              name="Positions fiscales"
+              parent="menu_accounting_config_fiscal"
+              action="action_account_fiscal_position"
+              sequence="30"/>
+</odoo>

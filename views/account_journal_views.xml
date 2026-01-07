@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Liste des Journaux -->
+    <record id="view_account_journal_list" model="ir.ui.view">
+        <field name="name">account.journal.custom.list</field>
+        <field name="model">account.journal.custom</field>
+        <field name="arch" type="xml">
+            <list string="Journaux">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="default_account_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Formulaire Journal -->
+    <record id="view_account_journal_form" model="ir.ui.view">
+        <field name="name">account.journal.custom.form</field>
+        <field name="model">account.journal.custom</field>
+        <field name="arch" type="xml">
+            <form string="Journal">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_moves"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-book">
+                            <field name="move_count" widget="statinfo" string="Ecritures"/>
+                        </button>
+                        <button name="action_create_new_move"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-plus">
+                            <span>Nouvelle ecriture</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Nom du journal"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Informations generales">
+                            <field name="code"/>
+                            <field name="type"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Comptes par defaut">
+                            <field name="default_account_id"/>
+                            <field name="suspense_account_id"/>
+                            <field name="profit_account_id" invisible="type not in ['bank', 'cash']"/>
+                            <field name="loss_account_id" invisible="type not in ['bank', 'cash']"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Configuration bancaire" name="bank" invisible="type not in ['bank', 'cash']">
+                            <group>
+                                <group>
+                                    <field name="bank_account_id"/>
+                                    <field name="bank_id"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Sequences" name="sequences">
+                            <group>
+                                <group>
+                                    <field name="sequence_id"/>
+                                </group>
+                                <group>
+                                    <field name="refund_sequence"/>
+                                    <field name="refund_sequence_id" invisible="not refund_sequence"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Comptes autorises" name="accounts">
+                            <field name="account_control_ids" widget="many2many_tags"/>
+                            <p class="text-muted">
+                                Si des comptes sont specifies ici, seuls ceux-ci pourront etre utilises dans ce journal.
+                            </p>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Kanban Journaux -->
+    <record id="view_account_journal_kanban" model="ir.ui.view">
+        <field name="name">account.journal.custom.kanban</field>
+        <field name="model">account.journal.custom</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_dashboard o_account_kanban" create="true">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="type"/>
+                <field name="color"/>
+                <field name="move_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record">
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title">
+                                    <div class="o_primary">
+                                        <strong><t t-esc="record.name.value"/></strong>
+                                    </div>
+                                    <div class="o_secondary text-muted">
+                                        <t t-esc="record.code.value"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_kanban_card_content mt-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <span>Type:</span>
+                                    </div>
+                                    <div class="col-6">
+                                        <t t-esc="record.type.value"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <span>Ecritures:</span>
+                                    </div>
+                                    <div class="col-6">
+                                        <strong><t t-esc="record.move_count.value"/></strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_kanban_card_footer mt-3">
+                                <a name="action_create_new_move" type="object" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-plus"/> Nouvelle ecriture
+                                </a>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Recherche Journal -->
+    <record id="view_account_journal_search" model="ir.ui.view">
+        <field name="name">account.journal.custom.search</field>
+        <field name="model">account.journal.custom</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher un journal">
+                <field name="name"/>
+                <field name="code"/>
+                <separator/>
+                <filter string="Ventes" name="sale" domain="[('type', '=', 'sale')]"/>
+                <filter string="Achats" name="purchase" domain="[('type', '=', 'purchase')]"/>
+                <filter string="Banque" name="bank" domain="[('type', '=', 'bank')]"/>
+                <filter string="Caisse" name="cash" domain="[('type', '=', 'cash')]"/>
+                <filter string="Operations diverses" name="general" domain="[('type', '=', 'general')]"/>
+                <group expand="0" string="Grouper par">
+                    <filter string="Type" name="group_type" context="{'group_by': 'type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Journaux -->
+    <record id="action_account_journal" model="ir.actions.act_window">
+        <field name="name">Journaux</field>
+        <field name="res_model">account.journal.custom</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_account_journal_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Creer un nouveau journal
+            </p>
+        </field>
+    </record>
+</odoo>

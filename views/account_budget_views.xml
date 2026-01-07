@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Liste des Budgets -->
+    <record id="view_account_budget_list" model="ir.ui.view">
+        <field name="name">account.budget.custom.list</field>
+        <field name="model">account.budget.custom</field>
+        <field name="arch" type="xml">
+            <list string="Budgets" decoration-info="state == 'draft'" decoration-success="state == 'validate'">
+                <field name="name"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="user_id"/>
+                <field name="total_planned" sum="Total prevu"/>
+                <field name="total_practical" sum="Total realise"/>
+                <field name="total_variance" sum="Ecart"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-warning="state == 'confirm'" decoration-success="state == 'validate'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Formulaire Budget -->
+    <record id="view_account_budget_form" model="ir.ui.view">
+        <field name="name">account.budget.custom.form</field>
+        <field name="model">account.budget.custom</field>
+        <field name="arch" type="xml">
+            <form string="Budget">
+                <header>
+                    <button name="action_confirm" string="Confirmer" type="object" invisible="state != 'draft'" class="btn-primary"/>
+                    <button name="action_validate" string="Valider" type="object" invisible="state != 'confirm'" class="btn-primary"/>
+                    <button name="action_done" string="Terminer" type="object" invisible="state != 'validate'"/>
+                    <button name="action_cancel" string="Annuler" type="object" invisible="state in ['draft', 'done', 'cancel']"/>
+                    <button name="action_draft" string="Remettre en brouillon" type="object" invisible="state != 'cancel'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,validate,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Nom du budget"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Totaux" class="oe_subtotal_footer">
+                        <field name="total_planned"/>
+                        <field name="total_practical"/>
+                        <field name="total_variance" class="oe_subtotal_footer_separator"/>
+                    </group>
+                    <notebook>
+                        <page string="Lignes de budget" name="lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="analytic_account_id"/>
+                                    <field name="account_id"/>
+                                    <field name="name"/>
+                                    <field name="planned_amount" sum="Total prevu"/>
+                                    <field name="practical_amount" sum="Total realise"/>
+                                    <field name="variance" sum="Ecart"/>
+                                    <field name="variance_percent"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Recherche Budget -->
+    <record id="view_account_budget_search" model="ir.ui.view">
+        <field name="name">account.budget.custom.search</field>
+        <field name="model">account.budget.custom</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher budgets">
+                <field name="name"/>
+                <field name="user_id"/>
+                <separator/>
+                <filter string="Brouillon" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirme" name="confirm" domain="[('state', '=', 'confirm')]"/>
+                <filter string="Valide" name="validate" domain="[('state', '=', 'validate')]"/>
+                <group expand="0" string="Grouper par">
+                    <filter string="Responsable" name="group_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="Etat" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Budgets -->
+    <record id="action_account_budget" model="ir.actions.act_window">
+        <field name="name">Budgets</field>
+        <field name="res_model">account.budget.custom</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_account_budget_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Creer un nouveau budget
+            </p>
+            <p>
+                Les budgets vous permettent de planifier et suivre vos depenses.
+            </p>
+        </field>
+    </record>
+
+    <!-- Postes Budgetaires -->
+    <record id="view_account_budget_post_list" model="ir.ui.view">
+        <field name="name">account.budget.post.custom.list</field>
+        <field name="model">account.budget.post.custom</field>
+        <field name="arch" type="xml">
+            <list string="Postes budgetaires" editable="bottom">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="account_ids" widget="many2many_tags"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_account_budget_post" model="ir.actions.act_window">
+        <field name="name">Postes budgetaires</field>
+        <field name="res_model">account.budget.post.custom</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Releves Bancaires -->
+    <record id="view_account_bank_statement_list" model="ir.ui.view">
+        <field name="name">account.bank.statement.custom.list</field>
+        <field name="model">account.bank.statement.custom</field>
+        <field name="arch" type="xml">
+            <list string="Releves bancaires" decoration-info="state == 'open'" decoration-success="state == 'confirm'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="journal_id"/>
+                <field name="balance_start"/>
+                <field name="total_entry_encoding"/>
+                <field name="balance_end"/>
+                <field name="balance_end_real"/>
+                <field name="state" widget="badge" decoration-info="state == 'open'" decoration-success="state == 'confirm'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_account_bank_statement_form" model="ir.ui.view">
+        <field name="name">account.bank.statement.custom.form</field>
+        <field name="model">account.bank.statement.custom</field>
+        <field name="arch" type="xml">
+            <form string="Releve bancaire">
+                <header>
+                    <button name="action_confirm" string="Valider" type="object" invisible="state != 'open'" class="btn-primary"/>
+                    <button name="action_reopen" string="Reouvrir" type="object" invisible="state != 'confirm'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Reference du releve"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="journal_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="balance_start"/>
+                            <field name="balance_end_real"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lignes" name="lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="date"/>
+                                    <field name="name"/>
+                                    <field name="ref" optional="show"/>
+                                    <field name="partner_id" optional="show"/>
+                                    <field name="amount"/>
+                                    <field name="is_reconciled" widget="boolean_toggle"/>
+                                    <field name="move_id" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group class="oe_subtotal_footer">
+                        <field name="total_entry_encoding"/>
+                        <field name="balance_end" class="oe_subtotal_footer_separator"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_account_bank_statement_search" model="ir.ui.view">
+        <field name="name">account.bank.statement.custom.search</field>
+        <field name="model">account.bank.statement.custom</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher releves">
+                <field name="name"/>
+                <field name="journal_id"/>
+                <separator/>
+                <filter string="Ouverts" name="open" domain="[('state', '=', 'open')]"/>
+                <filter string="Valides" name="confirm" domain="[('state', '=', 'confirm')]"/>
+                <group expand="0" string="Grouper par">
+                    <filter string="Journal" name="group_journal" context="{'group_by': 'journal_id'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_account_bank_statement" model="ir.actions.act_window">
+        <field name="name">Releves bancaires</field>
+        <field name="res_model">account.bank.statement.custom</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_account_bank_statement_search"/>
+    </record>
+
+    <!-- Lettrages Complets -->
+    <record id="view_account_full_reconcile_list" model="ir.ui.view">
+        <field name="name">account.full.reconcile.custom.list</field>
+        <field name="model">account.full.reconcile.custom</field>
+        <field name="arch" type="xml">
+            <list string="Lettrages complets" create="false">
+                <field name="name"/>
+                <field name="reconciled_line_ids" widget="many2many_tags"/>
+                <field name="exchange_move_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_account_full_reconcile" model="ir.actions.act_window">
+        <field name="name">Lettrages</field>
+        <field name="res_model">account.full.reconcile.custom</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Modeles de Lettrage -->
+    <record id="view_account_reconcile_model_list" model="ir.ui.view">
+        <field name="name">account.reconcile.model.custom.list</field>
+        <field name="model">account.reconcile.model.custom</field>
+        <field name="arch" type="xml">
+            <list string="Modeles de lettrage">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="rule_type"/>
+                <field name="match_nature"/>
+                <field name="account_id"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_account_reconcile_model_form" model="ir.ui.view">
+        <field name="name">account.reconcile.model.custom.form</field>
+        <field name="model">account.reconcile.model.custom</field>
+        <field name="arch" type="xml">
+            <form string="Modele de lettrage">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Type">
+                            <field name="rule_type" widget="radio"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Societe">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Conditions" name="conditions">
+                            <group>
+                                <group>
+                                    <field name="match_nature"/>
+                                    <field name="match_partner"/>
+                                    <field name="match_partner_ids" widget="many2many_tags" invisible="not match_partner"/>
+                                </group>
+                                <group>
+                                    <field name="match_amount"/>
+                                    <field name="match_amount_min" invisible="match_amount not in ['lower', 'between']"/>
+                                    <field name="match_amount_max" invisible="match_amount not in ['greater', 'between']"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="match_label"/>
+                                    <field name="match_label_param" invisible="not match_label"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Actions" name="actions">
+                            <group>
+                                <group>
+                                    <field name="account_id"/>
+                                    <field name="journal_id"/>
+                                    <field name="label"/>
+                                </group>
+                                <group>
+                                    <field name="amount_type"/>
+                                    <field name="amount"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="tax_ids" widget="many2many_tags"/>
+                                </group>
+                                <group>
+                                    <field name="analytic_account_id"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_reconcile_model" model="ir.actions.act_window">
+        <field name="name">Modeles de lettrage</field>
+        <field name="res_model">account.reconcile.model.custom</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

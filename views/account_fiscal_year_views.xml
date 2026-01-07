@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Exercices Fiscaux -->
+    <record id="view_account_fiscal_year_list" model="ir.ui.view">
+        <field name="name">account.fiscal.year.custom.list</field>
+        <field name="model">account.fiscal.year.custom</field>
+        <field name="arch" type="xml">
+            <list string="Exercices fiscaux" decoration-success="state == 'draft'" decoration-muted="state == 'done'">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="state" widget="badge" decoration-success="state == 'draft'" decoration-muted="state == 'done'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_account_fiscal_year_form" model="ir.ui.view">
+        <field name="name">account.fiscal.year.custom.form</field>
+        <field name="model">account.fiscal.year.custom</field>
+        <field name="arch" type="xml">
+            <form string="Exercice fiscal">
+                <header>
+                    <button name="action_create_periods" string="Creer les periodes" type="object" invisible="period_ids or state == 'done'" class="btn-primary"/>
+                    <button name="action_close" string="Cloturer" type="object" invisible="state != 'draft'" class="btn-secondary"/>
+                    <button name="action_reopen" string="Reouvrir" type="object" invisible="state != 'done'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="ex: Exercice 2024"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Periodes" name="periods">
+                            <field name="period_ids">
+                                <list decoration-success="state == 'draft'" decoration-muted="state == 'done'">
+                                    <field name="number"/>
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="date_start"/>
+                                    <field name="date_stop"/>
+                                    <field name="special"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_fiscal_year" model="ir.actions.act_window">
+        <field name="name">Exercices fiscaux</field>
+        <field name="res_model">account.fiscal.year.custom</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Creer un nouvel exercice fiscal
+            </p>
+        </field>
+    </record>
+
+    <!-- Periodes Comptables -->
+    <record id="view_account_period_list" model="ir.ui.view">
+        <field name="name">account.period.custom.list</field>
+        <field name="model">account.period.custom</field>
+        <field name="arch" type="xml">
+            <list string="Periodes" decoration-success="state == 'draft'" decoration-muted="state == 'done'">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="date_start"/>
+                <field name="date_stop"/>
+                <field name="fiscal_year_id"/>
+                <field name="special"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_account_period_form" model="ir.ui.view">
+        <field name="name">account.period.custom.form</field>
+        <field name="model">account.period.custom</field>
+        <field name="arch" type="xml">
+            <form string="Periode">
+                <header>
+                    <button name="action_close" string="Cloturer" type="object" invisible="state != 'draft'" class="btn-primary"/>
+                    <button name="action_reopen" string="Reouvrir" type="object" invisible="state != 'done'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="number"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_stop"/>
+                            <field name="fiscal_year_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="special"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_period" model="ir.actions.act_window">
+        <field name="name">Periodes</field>
+        <field name="res_model">account.period.custom</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Positions Fiscales -->
+    <record id="view_account_fiscal_position_list" model="ir.ui.view">
+        <field name="name">account.fiscal.position.custom.list</field>
+        <field name="model">account.fiscal.position.custom</field>
+        <field name="arch" type="xml">
+            <list string="Positions fiscales">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="auto_apply"/>
+                <field name="country_id"/>
+                <field name="vat_required"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_account_fiscal_position_form" model="ir.ui.view">
+        <field name="name">account.fiscal.position.custom.form</field>
+        <field name="model">account.fiscal.position.custom</field>
+        <field name="arch" type="xml">
+            <form string="Position fiscale">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Application automatique">
+                            <field name="auto_apply"/>
+                            <field name="vat_required"/>
+                            <field name="country_id"/>
+                            <field name="country_group_id"/>
+                            <field name="state_ids" widget="many2many_tags" invisible="not country_id"/>
+                            <field name="zip_from" invisible="not country_id"/>
+                            <field name="zip_to" invisible="not country_id"/>
+                        </group>
+                        <group string="Configuration">
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Correspondance taxes" name="taxes">
+                            <field name="tax_ids">
+                                <list editable="bottom">
+                                    <field name="tax_src_id"/>
+                                    <field name="tax_dest_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Correspondance comptes" name="accounts">
+                            <field name="account_ids">
+                                <list editable="bottom">
+                                    <field name="account_src_id"/>
+                                    <field name="account_dest_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_fiscal_position" model="ir.actions.act_window">
+        <field name="name">Positions fiscales</field>
+        <field name="res_model">account.fiscal.position.custom</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Conditions de Paiement -->
+    <record id="view_account_payment_term_list" model="ir.ui.view">
+        <field name="name">account.payment.term.custom.list</field>
+        <field name="model">account.payment.term.custom</field>
+        <field name="arch" type="xml">
+            <list string="Conditions de paiement">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_account_payment_term_form" model="ir.ui.view">
+        <field name="name">account.payment.term.custom.form</field>
+        <field name="model">account.payment.term.custom</field>
+        <field name="arch" type="xml">
+            <form string="Condition de paiement">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="active"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Echeances" name="lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="value"/>
+                                    <field name="value_amount"/>
+                                    <field name="delay_type"/>
+                                    <field name="nb_days"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Description" name="note">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_payment_term" model="ir.actions.act_window">
+        <field name="name">Conditions de paiement</field>
+        <field name="res_model">account.payment.term.custom</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

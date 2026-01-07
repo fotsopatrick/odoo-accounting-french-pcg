@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Categories -->
+    <record id="module_category_accounting" model="ir.module.category">
+        <field name="name">Comptabilite Custom</field>
+        <field name="description">Gestion comptable complete</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <!-- Groupes -->
+    <record id="group_account_invoice" model="res.groups">
+        <field name="name">Facturation</field>
+        <field name="category_id" ref="module_category_accounting"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="group_account_user" model="res.groups">
+        <field name="name">Comptable</field>
+        <field name="category_id" ref="module_category_accounting"/>
+        <field name="implied_ids" eval="[(4, ref('group_account_invoice'))]"/>
+    </record>
+
+    <record id="group_account_manager" model="res.groups">
+        <field name="name">Responsable Comptabilite</field>
+        <field name="category_id" ref="module_category_accounting"/>
+        <field name="implied_ids" eval="[(4, ref('group_account_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <!-- Regles d'acces multi-societes -->
+    <record id="account_account_comp_rule" model="ir.rule">
+        <field name="name">Account Account Company</field>
+        <field name="model_id" ref="model_account_account_custom"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="account_journal_comp_rule" model="ir.rule">
+        <field name="name">Account Journal Company</field>
+        <field name="model_id" ref="model_account_journal_custom"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="account_move_comp_rule" model="ir.rule">
+        <field name="name">Account Move Company</field>
+        <field name="model_id" ref="model_account_move_custom"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="account_move_line_comp_rule" model="ir.rule">
+        <field name="name">Account Move Line Company</field>
+        <field name="model_id" ref="model_account_move_line_custom"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="account_tax_comp_rule" model="ir.rule">
+        <field name="name">Account Tax Company</field>
+        <field name="model_id" ref="model_account_tax_custom"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="account_payment_comp_rule" model="ir.rule">
+        <field name="name">Account Payment Company</field>
+        <field name="model_id" ref="model_account_payment_custom"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="account_analytic_account_comp_rule" model="ir.rule">
+        <field name="name">Account Analytic Account Company</field>
+        <field name="model_id" ref="model_account_analytic_account_custom"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="account_budget_comp_rule" model="ir.rule">
+        <field name="name">Account Budget Company</field>
+        <field name="model_id" ref="model_account_budget_custom"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="account_fiscal_year_comp_rule" model="ir.rule">
+        <field name="name">Account Fiscal Year Company</field>
+        <field name="model_id" ref="model_account_fiscal_year_custom"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

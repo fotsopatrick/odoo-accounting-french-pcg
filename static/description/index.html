@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Roboto', 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #2E7D32;
+        }
+        h1 {
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #4CAF50;
+        }
+        .feature-card h3 {
+            margin-top: 0;
+            color: #1B5E20;
+        }
+        .highlight {
+            background: #E8F5E9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            margin: 5px;
+        }
+        .badge-outline {
+            background: transparent;
+            border: 2px solid #4CAF50;
+            color: #4CAF50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #4CAF50;
+            color: white;
+        }
+        tr:hover {
+            background: #f5f5f5;
+        }
+        .screenshot {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        ul li:before {
+            content: "✓";
+            color: #4CAF50;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Accounting Complete - French PCG</h1>
+
+<div class="highlight">
+    <span class="badge">Odoo 18</span>
+    <span class="badge">French PCG</span>
+    <span class="badge badge-outline">100+ Accounts</span>
+    <span class="badge badge-outline">LGPL-3</span>
+    <p style="margin-top: 15px; margin-bottom: 0;">
+        <strong>A comprehensive accounting solution</strong> for Odoo 18 Community Edition.
+        Get Enterprise-level accounting features with the complete French Chart of Accounts (Plan Comptable Général).
+    </p>
+</div>
+
+<h2>Key Features</h2>
+
+<div class="feature-grid">
+    <div class="feature-card">
+        <h3>📊 Chart of Accounts</h3>
+        <p>Complete French PCG with 100+ pre-configured accounts across all 8 classes. Ready to use immediately after installation.</p>
+    </div>
+    <div class="feature-card">
+        <h3>📝 Journal Entries</h3>
+        <p>Full double-entry accounting with automatic balance validation. Draft, Posted, and Cancelled states for complete control.</p>
+    </div>
+    <div class="feature-card">
+        <h3>🧾 Invoicing</h3>
+        <p>Customer and supplier invoices with automatic journal entry generation. Support for credit notes and multiple payment terms.</p>
+    </div>
+    <div class="feature-card">
+        <h3>💰 Tax Management</h3>
+        <p>French VAT rates (20%, 10%, 5.5%, 2.1%) pre-configured. Automatic tax calculation on invoices.</p>
+    </div>
+    <div class="feature-card">
+        <h3>🏦 Bank Reconciliation</h3>
+        <p>Import bank statements, match transactions, and reconcile accounts. Automatic matching rules available.</p>
+    </div>
+    <div class="feature-card">
+        <h3>📈 Analytic Accounting</h3>
+        <p>Multi-axis analytic plans for cost centers and project accounting. Track profitability by department or project.</p>
+    </div>
+    <div class="feature-card">
+        <h3>📋 Budget Management</h3>
+        <p>Create budgets by account, compare with actuals, and analyze variances. Multiple budget versions supported.</p>
+    </div>
+    <div class="feature-card">
+        <h3>📅 Fiscal Periods</h3>
+        <p>Manage fiscal years and periods. Close periods to prevent modifications. Year-end closing operations.</p>
+    </div>
+</div>
+
+<h2>Chart of Accounts Included</h2>
+
+<table>
+    <tr>
+        <th>Class</th>
+        <th>Name</th>
+        <th>Example Accounts</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>Capitaux (Capital)</td>
+        <td>101000 Capital social, 164000 Emprunts</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Immobilisations (Fixed Assets)</td>
+        <td>211000 Terrains, 218300 Matériel informatique</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Stocks (Inventory)</td>
+        <td>311000 Matières premières, 370000 Marchandises</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Tiers (Third Parties)</td>
+        <td>401000 Fournisseurs, 411000 Clients, 445700 TVA</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Financiers (Financial)</td>
+        <td>512000 Banques, 530000 Caisse</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>Charges (Expenses)</td>
+        <td>607000 Achats, 641000 Rémunérations</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>Produits (Income)</td>
+        <td>706000 Services, 707000 Ventes marchandises</td>
+    </tr>
+</table>
+
+<h2>Screenshots</h2>
+
+<h3>Chart of Accounts</h3>
+<img src="screenshot1.png" alt="Chart of Accounts" class="screenshot">
+
+<h3>Invoice Management</h3>
+<img src="screenshot2.png" alt="Invoice Management" class="screenshot">
+
+<h2>Perfect For</h2>
+
+<ul>
+    <li>Small and medium businesses in France</li>
+    <li>Auto-entrepreneurs (French self-employed)</li>
+    <li>Accountants managing multiple companies</li>
+    <li>Companies migrating from older Odoo versions</li>
+    <li>Anyone needing accounting without Enterprise license</li>
+</ul>
+
+<h2>Installation</h2>
+
+<ol>
+    <li>Download and extract the module to your Odoo addons directory</li>
+    <li>Restart Odoo and update the apps list</li>
+    <li>Search for "Accounting Complete" and install</li>
+    <li>The French PCG is automatically loaded</li>
+</ol>
+
+<h2>Support</h2>
+
+<p>
+    If you encounter any issues or have feature requests, please create an issue on the app page.
+    We aim to respond within 48 hours.
+</p>
+
+<div class="highlight">
+    <h3 style="margin-top: 0;">Why Choose This Module?</h3>
+    <ul>
+        <li><strong>Complete Solution</strong> - Everything you need for French accounting</li>
+        <li><strong>Enterprise Features</strong> - Without the Enterprise license cost</li>
+        <li><strong>Ready to Use</strong> - Pre-configured chart of accounts and taxes</li>
+        <li><strong>Well Documented</strong> - Comprehensive documentation and support</li>
+        <li><strong>Open Source</strong> - LGPL-3 license, modify as needed</li>
+    </ul>
+</div>
+
+</body>
+</html>

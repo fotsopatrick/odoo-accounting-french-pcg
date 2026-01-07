@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ==================== -->
+        <!-- CLASSE 1 - CAPITAUX -->
+        <!-- ==================== -->
+        <record id="account_101" model="account.account.custom">
+            <field name="code">101000</field>
+            <field name="name">Capital social</field>
+            <field name="account_type">equity</field>
+            <field name="account_class">1</field>
+        </record>
+
+        <record id="account_106" model="account.account.custom">
+            <field name="code">106000</field>
+            <field name="name">Reserves</field>
+            <field name="account_type">equity</field>
+            <field name="account_class">1</field>
+        </record>
+
+        <record id="account_108" model="account.account.custom">
+            <field name="code">108000</field>
+            <field name="name">Compte de l exploitant</field>
+            <field name="account_type">equity</field>
+            <field name="account_class">1</field>
+        </record>
+
+        <record id="account_110" model="account.account.custom">
+            <field name="code">110000</field>
+            <field name="name">Report a nouveau (solde crediteur)</field>
+            <field name="account_type">equity_unaffected</field>
+            <field name="account_class">1</field>
+        </record>
+
+        <record id="account_119" model="account.account.custom">
+            <field name="code">119000</field>
+            <field name="name">Report a nouveau (solde debiteur)</field>
+            <field name="account_type">equity_unaffected</field>
+            <field name="account_class">1</field>
+        </record>
+
+        <record id="account_120" model="account.account.custom">
+            <field name="code">120000</field>
+            <field name="name">Resultat de l exercice (benefice)</field>
+            <field name="account_type">equity_unaffected</field>
+            <field name="account_class">1</field>
+        </record>
+
+        <record id="account_129" model="account.account.custom">
+            <field name="code">129000</field>
+            <field name="name">Resultat de l exercice (perte)</field>
+            <field name="account_type">equity_unaffected</field>
+            <field name="account_class">1</field>
+        </record>
+
+        <record id="account_164" model="account.account.custom">
+            <field name="code">164000</field>
+            <field name="name">Emprunts aupres des etablissements de credit</field>
+            <field name="account_type">liability_non_current</field>
+            <field name="account_class">1</field>
+        </record>
+
+        <!-- ========================= -->
+        <!-- CLASSE 2 - IMMOBILISATIONS -->
+        <!-- ========================= -->
+        <record id="account_201" model="account.account.custom">
+            <field name="code">201000</field>
+            <field name="name">Frais d etablissement</field>
+            <field name="account_type">asset_non_current</field>
+            <field name="account_class">2</field>
+        </record>
+
+        <record id="account_205" model="account.account.custom">
+            <field name="code">205000</field>
+            <field name="name">Concessions et droits similaires</field>
+            <field name="account_type">asset_non_current</field>
+            <field name="account_class">2</field>
+        </record>
+
+        <record id="account_206" model="account.account.custom">
+            <field name="code">206000</field>
+            <field name="name">Droit au bail</field>
+            <field name="account_type">asset_non_current</field>
+            <field name="account_class">2</field>
+        </record>
+
+        <record id="account_207" model="account.account.custom">
+            <field name="code">207000</field>
+            <field name="name">Fonds commercial</field>
+            <field name="account_type">asset_non_current</field>
+            <field name="account_class">2</field>
+        </record>
+
+        <record id="account_211" model="account.account.custom">
+            <field name="code">211000</field>
+            <field name="name">Terrains</field>
+            <field name="account_type">asset_fixed</field>
+            <field name="account_class">2</field>
+        </record>
+
+        <record id="account_213" model="account.account.custom">
+            <field name="code">213000</field>
+            <field name="name">Constructions</field>
+            <field name="account_type">asset_fixed</field>
+            <field name="account_class">2</field>
+        </record>
+
+        <record id="account_215" model="account.account.custom">
+            <field name="code">215000</field>
+            <field name="name">Installations techniques</field>
+            <field name="account_type">asset_fixed</field>
+            <field name="account_class">2</field>
+        </record>
+
+        <record id="account_218" model="account.account.custom">
+            <field name="code">218200</field>
+            <field name="name">Materiel de transport</field>
+            <field name="account_type">asset_fixed</field>
+            <field name="account_class">2</field>
+        </record>
+
+        <record id="account_218_3" model="account.account.custom">
+            <field name="code">218300</field>
+            <field name="name">Materiel de bureau et informatique</field>
+            <field name="account_type">asset_fixed</field>
+            <field name="account_class">2</field>
+        </record>
+
+        <record id="account_218_4" model="account.account.custom">
+            <field name="code">218400</field>
+            <field name="name">Mobilier</field>
+            <field name="account_type">asset_fixed</field>
+            <field name="account_class">2</field>
+        </record>
+
+        <record id="account_280" model="account.account.custom">
+            <field name="code">280000</field>
+            <field name="name">Amortissements des immobilisations incorporelles</field>
+            <field name="account_type">asset_non_current</field>
+            <field name="account_class">2</field>
+        </record>
+
+        <record id="account_281" model="account.account.custom">
+            <field name="code">281000</field>
+            <field name="name">Amortissements des immobilisations corporelles</field>
+            <field name="account_type">asset_fixed</field>
+            <field name="account_class">2</field>
+        </record>
+
+        <!-- ================ -->
+        <!-- CLASSE 3 - STOCKS -->
+        <!-- ================ -->
+        <record id="account_311" model="account.account.custom">
+            <field name="code">311000</field>
+            <field name="name">Matieres premieres</field>
+            <field name="account_type">asset_current</field>
+            <field name="account_class">3</field>
+        </record>
+
+        <record id="account_321" model="account.account.custom">
+            <field name="code">321000</field>
+            <field name="name">En-cours de production de biens</field>
+            <field name="account_type">asset_current</field>
+            <field name="account_class">3</field>
+        </record>
+
+        <record id="account_355" model="account.account.custom">
+            <field name="code">355000</field>
+            <field name="name">Produits finis</field>
+            <field name="account_type">asset_current</field>
+            <field name="account_class">3</field>
+        </record>
+
+        <record id="account_370" model="account.account.custom">
+            <field name="code">370000</field>
+            <field name="name">Stocks de marchandises</field>
+            <field name="account_type">asset_current</field>
+            <field name="account_class">3</field>
+        </record>
+
+        <!-- ============== -->
+        <!-- CLASSE 4 - TIERS -->
+        <!-- ============== -->
+        <record id="account_401" model="account.account.custom">
+            <field name="code">401000</field>
+            <field name="name">Fournisseurs</field>
+            <field name="account_type">liability_payable</field>
+            <field name="account_class">4</field>
+            <field name="reconcile">True</field>
+        </record>
+
+        <record id="account_404" model="account.account.custom">
+            <field name="code">404000</field>
+            <field name="name">Fournisseurs d immobilisations</field>
+            <field name="account_type">liability_payable</field>
+            <field name="account_class">4</field>
+            <field name="reconcile">True</field>
+        </record>
+
+        <record id="account_408" model="account.account.custom">
+            <field name="code">408000</field>
+            <field name="name">Fournisseurs - Factures non parvenues</field>
+            <field name="account_type">liability_payable</field>
+            <field name="account_class">4</field>
+        </record>
+
+        <record id="account_409" model="account.account.custom">
+            <field name="code">409000</field>
+            <field name="name">Fournisseurs debiteurs</field>
+            <field name="account_type">asset_current</field>
+            <field name="account_class">4</field>
+            <field name="reconcile">True</field>
+        </record>
+
+        <record id="account_411" model="account.account.custom">
+            <field name="code">411000</field>
+            <field name="name">Clients</field>
+            <field name="account_type">asset_receivable</field>
+            <field name="account_class">4</field>
+            <field name="reconcile">True</field>
+        </record>
+
+        <record id="account_416" model="account.account.custom">
+            <field name="code">416000</field>
+            <field name="name">Clients douteux ou litigieux</field>
+            <field name="account_type">asset_receivable</field>
+            <field name="account_class">4</field>
+            <field name="reconcile">True</field>
+        </record>
+
+        <record id="account_418" model="account.account.custom">
+            <field name="code">418000</field>
+            <field name="name">Clients - Produits non encore factures</field>
+            <field name="account_type">asset_receivable</field>
+            <field name="account_class">4</field>
+        </record>
+
+        <record id="account_419" model="account.account.custom">
+            <field name="code">419000</field>
+            <field name="name">Clients crediteurs</field>
+            <field name="account_type">liability_current</field>
+            <field name="account_class">4</field>
+            <field name="reconcile">True</field>
+        </record>
+
+        <record id="account_421" model="account.account.custom">
+            <field name="code">421000</field>
+            <field name="name">Personnel - Remunerations dues</field>
+            <field name="account_type">liability_current</field>
+            <field name="account_class">4</field>
+        </record>
+
+        <record id="account_425" model="account.account.custom">
+            <field name="code">425000</field>
+            <field name="name">Personnel - Avances et acomptes</field>
+            <field name="account_type">asset_current</field>
+            <field name="account_class">4</field>
+        </record>
+
+        <record id="account_431" model="account.account.custom">
+            <field name="code">431000</field>
+            <field name="name">Securite sociale</field>
+            <field name="account_type">liability_current</field>
+            <field name="account_class">4</field>
+        </record>
+
+        <record id="account_437" model="account.account.custom">
+            <field name="code">437000</field>
+            <field name="name">Autres organismes sociaux</field>
+            <field name="account_type">liability_current</field>
+            <field name="account_class">4</field>
+        </record>
+
+        <record id="account_4456" model="account.account.custom">
+            <field name="code">445600</field>
+            <field name="name">TVA deductible</field>
+            <field name="account_type">asset_current</field>
+            <field name="account_class">4</field>
+        </record>
+
+        <record id="account_44562" model="account.account.custom">
+            <field name="code">445620</field>
+            <field name="name">TVA deductible sur immobilisations</field>
+            <field name="account_type">asset_current</field>
+            <field name="account_class">4</field>
+        </record>
+
+        <record id="account_44566" model="account.account.custom">
+            <field name="code">445660</field>
+            <field name="name">TVA deductible sur ABS</field>
+            <field name="account_type">asset_current</field>
+            <field name="account_class">4</field>
+        </record>
+
+        <record id="account_4457" model="account.account.custom">
+            <field name="code">445700</field>
+            <field name="name">TVA collectee</field>
+            <field name="account_type">liability_current</field>
+            <field name="account_class">4</field>
+        </record>
+
+        <record id="account_4458" model="account.account.custom">
+            <field name="code">445800</field>
+            <field name="name">TVA a regulariser</field>
+            <field name="account_type">liability_current</field>
+            <field name="account_class">4</field>
+        </record>
+
+        <record id="account_44587" model="account.account.custom">
+            <field name="code">445870</field>
+            <field name="name">Credit de TVA</field>
+            <field name="account_type">asset_current</field>
+            <field name="account_class">4</field>
+        </record>
+
+        <record id="account_455" model="account.account.custom">
+            <field name="code">455000</field>
+            <field name="name">Associes - Comptes courants</field>
+            <field name="account_type">liability_current</field>
+            <field name="account_class">4</field>
+        </record>
+
+        <record id="account_471" model="account.account.custom">
+            <field name="code">471000</field>
+            <field name="name">Compte d attente</field>
+            <field name="account_type">asset_current</field>
+            <field name="account_class">4</field>
+        </record>
+
+        <!-- ================== -->
+        <!-- CLASSE 5 - FINANCIER -->
+        <!-- ================== -->
+        <record id="account_512" model="account.account.custom">
+            <field name="code">512000</field>
+            <field name="name">Banques</field>
+            <field name="account_type">asset_cash</field>
+            <field name="account_class">5</field>
+            <field name="reconcile">True</field>
+        </record>
+
+        <record id="account_514" model="account.account.custom">
+            <field name="code">514000</field>
+            <field name="name">Cheques a encaisser</field>
+            <field name="account_type">asset_cash</field>
+            <field name="account_class">5</field>
+        </record>
+
+        <record id="account_530" model="account.account.custom">
+            <field name="code">530000</field>
+            <field name="name">Caisse</field>
+            <field name="account_type">asset_cash</field>
+            <field name="account_class">5</field>
+        </record>
+
+        <record id="account_580" model="account.account.custom">
+            <field name="code">580000</field>
+            <field name="name">Virements internes</field>
+            <field name="account_type">asset_current</field>
+            <field name="account_class">5</field>
+        </record>
+
+        <!-- ================= -->
+        <!-- CLASSE 6 - CHARGES -->
+        <!-- ================= -->
+        <record id="account_601" model="account.account.custom">
+            <field name="code">601000</field>
+            <field name="name">Achats de matieres premieres</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_602" model="account.account.custom">
+            <field name="code">602000</field>
+            <field name="name">Achats stockes - Autres approvisionnements</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_604" model="account.account.custom">
+            <field name="code">604000</field>
+            <field name="name">Achats d etudes et prestations de services</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_606" model="account.account.custom">
+            <field name="code">606000</field>
+            <field name="name">Achats non stockes</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_607" model="account.account.custom">
+            <field name="code">607000</field>
+            <field name="name">Achats de marchandises</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_609" model="account.account.custom">
+            <field name="code">609000</field>
+            <field name="name">Rabais, remises et ristournes obtenus</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_611" model="account.account.custom">
+            <field name="code">611000</field>
+            <field name="name">Sous-traitance generale</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_612" model="account.account.custom">
+            <field name="code">612000</field>
+            <field name="name">Redevances de credit-bail</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_613" model="account.account.custom">
+            <field name="code">613000</field>
+            <field name="name">Locations</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_614" model="account.account.custom">
+            <field name="code">614000</field>
+            <field name="name">Charges locatives</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_615" model="account.account.custom">
+            <field name="code">615000</field>
+            <field name="name">Entretien et reparations</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_616" model="account.account.custom">
+            <field name="code">616000</field>
+            <field name="name">Primes d assurance</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_617" model="account.account.custom">
+            <field name="code">617000</field>
+            <field name="name">Etudes et recherches</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_618" model="account.account.custom">
+            <field name="code">618000</field>
+            <field name="name">Divers</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_622" model="account.account.custom">
+            <field name="code">622000</field>
+            <field name="name">Remunerations d intermediaires</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_623" model="account.account.custom">
+            <field name="code">623000</field>
+            <field name="name">Publicite, publications, relations publiques</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_624" model="account.account.custom">
+            <field name="code">624000</field>
+            <field name="name">Transports de biens et transports collectifs</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_625" model="account.account.custom">
+            <field name="code">625000</field>
+            <field name="name">Deplacements, missions et receptions</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_626" model="account.account.custom">
+            <field name="code">626000</field>
+            <field name="name">Frais postaux et de telecommunications</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_627" model="account.account.custom">
+            <field name="code">627000</field>
+            <field name="name">Services bancaires et assimiles</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_628" model="account.account.custom">
+            <field name="code">628000</field>
+            <field name="name">Divers</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_631" model="account.account.custom">
+            <field name="code">631000</field>
+            <field name="name">Impots, taxes et versements assimiles</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_641" model="account.account.custom">
+            <field name="code">641000</field>
+            <field name="name">Remunerations du personnel</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_645" model="account.account.custom">
+            <field name="code">645000</field>
+            <field name="name">Charges de securite sociale et prevoyance</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_647" model="account.account.custom">
+            <field name="code">647000</field>
+            <field name="name">Autres charges sociales</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_651" model="account.account.custom">
+            <field name="code">651000</field>
+            <field name="name">Redevances pour concessions, brevets</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_654" model="account.account.custom">
+            <field name="code">654000</field>
+            <field name="name">Pertes sur creances irrecouvrables</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_658" model="account.account.custom">
+            <field name="code">658000</field>
+            <field name="name">Charges diverses de gestion courante</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_661" model="account.account.custom">
+            <field name="code">661000</field>
+            <field name="name">Charges d interets</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_665" model="account.account.custom">
+            <field name="code">665000</field>
+            <field name="name">Escomptes accordes</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_666" model="account.account.custom">
+            <field name="code">666000</field>
+            <field name="name">Pertes de change</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_671" model="account.account.custom">
+            <field name="code">671000</field>
+            <field name="name">Charges exceptionnelles sur operations de gestion</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_675" model="account.account.custom">
+            <field name="code">675000</field>
+            <field name="name">Valeurs comptables des elements d actif cedes</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_681" model="account.account.custom">
+            <field name="code">681000</field>
+            <field name="name">Dotations aux amortissements et provisions</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <record id="account_695" model="account.account.custom">
+            <field name="code">695000</field>
+            <field name="name">Impots sur les benefices</field>
+            <field name="account_type">expense</field>
+            <field name="account_class">6</field>
+        </record>
+
+        <!-- ================== -->
+        <!-- CLASSE 7 - PRODUITS -->
+        <!-- ================== -->
+        <record id="account_701" model="account.account.custom">
+            <field name="code">701000</field>
+            <field name="name">Ventes de produits finis</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_706" model="account.account.custom">
+            <field name="code">706000</field>
+            <field name="name">Prestations de services</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_707" model="account.account.custom">
+            <field name="code">707000</field>
+            <field name="name">Ventes de marchandises</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_708" model="account.account.custom">
+            <field name="code">708000</field>
+            <field name="name">Produits des activites annexes</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_709" model="account.account.custom">
+            <field name="code">709000</field>
+            <field name="name">Rabais, remises et ristournes accordes</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_713" model="account.account.custom">
+            <field name="code">713000</field>
+            <field name="name">Variation des stocks</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_721" model="account.account.custom">
+            <field name="code">721000</field>
+            <field name="name">Production immobilisee - Immobilisations incorporelles</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_722" model="account.account.custom">
+            <field name="code">722000</field>
+            <field name="name">Production immobilisee - Immobilisations corporelles</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_740" model="account.account.custom">
+            <field name="code">740000</field>
+            <field name="name">Subventions d exploitation</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_758" model="account.account.custom">
+            <field name="code">758000</field>
+            <field name="name">Produits divers de gestion courante</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_761" model="account.account.custom">
+            <field name="code">761000</field>
+            <field name="name">Produits de participations</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_764" model="account.account.custom">
+            <field name="code">764000</field>
+            <field name="name">Revenus des valeurs mobilieres de placement</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_765" model="account.account.custom">
+            <field name="code">765000</field>
+            <field name="name">Escomptes obtenus</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_766" model="account.account.custom">
+            <field name="code">766000</field>
+            <field name="name">Gains de change</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_771" model="account.account.custom">
+            <field name="code">771000</field>
+            <field name="name">Produits exceptionnels sur operations de gestion</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_775" model="account.account.custom">
+            <field name="code">775000</field>
+            <field name="name">Produits des cessions d elements d actif</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <record id="account_781" model="account.account.custom">
+            <field name="code">781000</field>
+            <field name="name">Reprises sur amortissements et provisions</field>
+            <field name="account_type">income</field>
+            <field name="account_class">7</field>
+        </record>
+
+        <!-- ===================== -->
+        <!-- TAXES PAR DEFAUT -->
+        <!-- ===================== -->
+        <record id="tax_sale_20" model="account.tax.custom">
+            <field name="name">TVA 20% (Ventes)</field>
+            <field name="description">20%</field>
+            <field name="type_tax_use">sale</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">20</field>
+            <field name="account_id" ref="account_4457"/>
+            <field name="refund_account_id" ref="account_4457"/>
+        </record>
+
+        <record id="tax_sale_10" model="account.tax.custom">
+            <field name="name">TVA 10% (Ventes)</field>
+            <field name="description">10%</field>
+            <field name="type_tax_use">sale</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">10</field>
+            <field name="account_id" ref="account_4457"/>
+            <field name="refund_account_id" ref="account_4457"/>
+        </record>
+
+        <record id="tax_sale_5_5" model="account.tax.custom">
+            <field name="name">TVA 5.5% (Ventes)</field>
+            <field name="description">5.5%</field>
+            <field name="type_tax_use">sale</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">5.5</field>
+            <field name="account_id" ref="account_4457"/>
+            <field name="refund_account_id" ref="account_4457"/>
+        </record>
+
+        <record id="tax_sale_2_1" model="account.tax.custom">
+            <field name="name">TVA 2.1% (Ventes)</field>
+            <field name="description">2.1%</field>
+            <field name="type_tax_use">sale</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">2.1</field>
+            <field name="account_id" ref="account_4457"/>
+            <field name="refund_account_id" ref="account_4457"/>
+        </record>
+
+        <record id="tax_purchase_20" model="account.tax.custom">
+            <field name="name">TVA 20% (Achats)</field>
+            <field name="description">20%</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">20</field>
+            <field name="account_id" ref="account_44566"/>
+            <field name="refund_account_id" ref="account_44566"/>
+        </record>
+
+        <record id="tax_purchase_10" model="account.tax.custom">
+            <field name="name">TVA 10% (Achats)</field>
+            <field name="description">10%</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">10</field>
+            <field name="account_id" ref="account_44566"/>
+            <field name="refund_account_id" ref="account_44566"/>
+        </record>
+
+        <record id="tax_purchase_5_5" model="account.tax.custom">
+            <field name="name">TVA 5.5% (Achats)</field>
+            <field name="description">5.5%</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="amount_type">percent</field>
+            <field name="amount">5.5</field>
+            <field name="account_id" ref="account_44566"/>
+            <field name="refund_account_id" ref="account_44566"/>
+        </record>
+
+        <!-- ===================== -->
+        <!-- JOURNAUX PAR DEFAUT -->
+        <!-- ===================== -->
+        <record id="journal_sale" model="account.journal.custom">
+            <field name="name">Ventes</field>
+            <field name="code">VTE</field>
+            <field name="type">sale</field>
+            <field name="default_account_id" ref="account_707"/>
+        </record>
+
+        <record id="journal_purchase" model="account.journal.custom">
+            <field name="name">Achats</field>
+            <field name="code">ACH</field>
+            <field name="type">purchase</field>
+            <field name="default_account_id" ref="account_607"/>
+        </record>
+
+        <record id="journal_bank" model="account.journal.custom">
+            <field name="name">Banque</field>
+            <field name="code">BNK</field>
+            <field name="type">bank</field>
+            <field name="default_account_id" ref="account_512"/>
+        </record>
+
+        <record id="journal_cash" model="account.journal.custom">
+            <field name="name">Caisse</field>
+            <field name="code">CAI</field>
+            <field name="type">cash</field>
+            <field name="default_account_id" ref="account_530"/>
+        </record>
+
+        <record id="journal_misc" model="account.journal.custom">
+            <field name="name">Operations diverses</field>
+            <field name="code">OD</field>
+            <field name="type">general</field>
+        </record>
+
+        <record id="journal_opening" model="account.journal.custom">
+            <field name="name">A nouveaux</field>
+            <field name="code">AN</field>
+            <field name="type">situation</field>
+        </record>
+    </data>
+</odoo>

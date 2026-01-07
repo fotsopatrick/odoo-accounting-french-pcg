@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Liste des Paiements -->
+    <record id="view_account_payment_list" model="ir.ui.view">
+        <field name="name">account.payment.custom.list</field>
+        <field name="model">account.payment.custom</field>
+        <field name="arch" type="xml">
+            <list string="Paiements" decoration-info="state == 'draft'" decoration-muted="state == 'cancel'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="partner_id"/>
+                <field name="payment_type"/>
+                <field name="journal_id"/>
+                <field name="payment_method"/>
+                <field name="amount" sum="Total"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge" decoration-success="state == 'posted'" decoration-info="state == 'draft'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Formulaire Paiement -->
+    <record id="view_account_payment_form" model="ir.ui.view">
+        <field name="name">account.payment.custom.form</field>
+        <field name="model">account.payment.custom</field>
+        <field name="arch" type="xml">
+            <form string="Paiement">
+                <header>
+                    <button name="action_post"
+                            string="Valider"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_cancel"
+                            string="Annuler"
+                            type="object"
+                            invisible="state != 'posted'"/>
+                    <button name="action_draft"
+                            string="Remettre en brouillon"
+                            type="object"
+                            invisible="state != 'cancel'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Valide" bg_color="text-bg-success" invisible="state != 'posted'"/>
+                    <widget name="web_ribbon" title="Annule" bg_color="text-bg-danger" invisible="state != 'cancel'"/>
+                    <div class="oe_title">
+                        <span class="o_form_label">
+                            <span invisible="payment_type != 'inbound'">Reception</span>
+                            <span invisible="payment_type != 'outbound'">Envoi</span>
+                        </span>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Paiement">
+                            <field name="payment_type" widget="radio" options="{'horizontal': true}"/>
+                            <field name="partner_type" widget="radio" options="{'horizontal': true}"/>
+                            <field name="partner_id"/>
+                            <field name="amount"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                        </group>
+                        <group string="Configuration">
+                            <field name="date"/>
+                            <field name="journal_id"/>
+                            <field name="payment_method"/>
+                            <field name="ref"/>
+                            <field name="communication"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Factures a lettrer">
+                            <field name="move_ids" widget="many2many_tags"/>
+                        </group>
+                        <group string="Comptabilisation" invisible="state != 'posted'">
+                            <field name="move_id"/>
+                            <field name="destination_account_id" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Recherche Paiements -->
+    <record id="view_account_payment_search" model="ir.ui.view">
+        <field name="name">account.payment.custom.search</field>
+        <field name="model">account.payment.custom</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher paiements">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="ref"/>
+                <separator/>
+                <filter string="Brouillons" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Valides" name="posted" domain="[('state', '=', 'posted')]"/>
+                <separator/>
+                <filter string="Receptions" name="inbound" domain="[('payment_type', '=', 'inbound')]"/>
+                <filter string="Envois" name="outbound" domain="[('payment_type', '=', 'outbound')]"/>
+                <separator/>
+                <filter string="Clients" name="customer" domain="[('partner_type', '=', 'customer')]"/>
+                <filter string="Fournisseurs" name="supplier" domain="[('partner_type', '=', 'supplier')]"/>
+                <group expand="0" string="Grouper par">
+                    <filter string="Partenaire" name="group_partner" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Journal" name="group_journal" context="{'group_by': 'journal_id'}"/>
+                    <filter string="Etat" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Paiements -->
+    <record id="action_account_payment" model="ir.actions.act_window">
+        <field name="name">Paiements</field>
+        <field name="res_model">account.payment.custom</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_account_payment_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Enregistrer un nouveau paiement
+            </p>
+        </field>
+    </record>
+
+    <!-- Action Paiements Clients -->
+    <record id="action_account_payment_inbound" model="ir.actions.act_window">
+        <field name="name">Paiements recus</field>
+        <field name="res_model">account.payment.custom</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('payment_type', '=', 'inbound')]</field>
+        <field name="context">{'default_payment_type': 'inbound', 'default_partner_type': 'customer'}</field>
+    </record>
+
+    <!-- Action Paiements Fournisseurs -->
+    <record id="action_account_payment_outbound" model="ir.actions.act_window">
+        <field name="name">Paiements envoyes</field>
+        <field name="res_model">account.payment.custom</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('payment_type', '=', 'outbound')]</field>
+        <field name="context">{'default_payment_type': 'outbound', 'default_partner_type': 'supplier'}</field>
+    </record>
+
+    <!-- Methodes de paiement -->
+    <record id="view_account_payment_method_list" model="ir.ui.view">
+        <field name="name">account.payment.method.custom.list</field>
+        <field name="model">account.payment.method.custom</field>
+        <field name="arch" type="xml">
+            <list string="Methodes de paiement" editable="bottom">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="payment_type"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_account_payment_method" model="ir.actions.act_window">
+        <field name="name">Methodes de paiement</field>
+        <field name="res_model">account.payment.method.custom</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

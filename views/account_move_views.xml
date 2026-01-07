@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Liste des Ecritures -->
+    <record id="view_account_move_list" model="ir.ui.view">
+        <field name="name">account.move.custom.list</field>
+        <field name="model">account.move.custom</field>
+        <field name="arch" type="xml">
+            <list string="Ecritures" decoration-info="state == 'draft'" decoration-muted="state == 'cancel'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="partner_id" optional="show"/>
+                <field name="ref" optional="show"/>
+                <field name="journal_id"/>
+                <field name="move_type" column_invisible="1"/>
+                <field name="amount_total" sum="Total"/>
+                <field name="amount_residual" optional="show"/>
+                <field name="state" widget="badge" decoration-success="state == 'posted'" decoration-info="state == 'draft'" decoration-muted="state == 'cancel'"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Formulaire Ecriture -->
+    <record id="view_account_move_form" model="ir.ui.view">
+        <field name="name">account.move.custom.form</field>
+        <field name="model">account.move.custom</field>
+        <field name="arch" type="xml">
+            <form string="Ecriture comptable">
+                <header>
+                    <button name="action_post"
+                            string="Comptabiliser"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_cancel"
+                            string="Annuler"
+                            type="object"
+                            invisible="state != 'posted'"/>
+                    <button name="action_draft"
+                            string="Remettre en brouillon"
+                            type="object"
+                            invisible="state != 'cancel'"/>
+                    <button name="action_register_payment"
+                            string="Enregistrer un paiement"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="state != 'posted' or move_type not in ['out_invoice', 'in_invoice']"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <widget name="web_ribbon" title="Comptabilise" bg_color="text-bg-success" invisible="state != 'posted'"/>
+                    <widget name="web_ribbon" title="Annule" bg_color="text-bg-danger" invisible="state != 'cancel'"/>
+                    <div class="oe_title">
+                        <span class="o_form_label">
+                            <field name="move_type" invisible="1"/>
+                            <span invisible="move_type != 'entry'">Ecriture</span>
+                            <span invisible="move_type != 'out_invoice'">Facture client</span>
+                            <span invisible="move_type != 'out_refund'">Avoir client</span>
+                            <span invisible="move_type != 'in_invoice'">Facture fournisseur</span>
+                            <span invisible="move_type != 'in_refund'">Avoir fournisseur</span>
+                        </span>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="ref"/>
+                            <field name="invoice_date" invisible="move_type == 'entry'"/>
+                            <field name="invoice_date_due" invisible="move_type == 'entry'"/>
+                            <field name="invoice_origin" invisible="move_type == 'entry'"/>
+                        </group>
+                        <group>
+                            <field name="journal_id" readonly="state == 'posted'"/>
+                            <field name="date"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="fiscal_year_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lignes d'ecriture" name="lines">
+                            <field name="line_ids" widget="section_and_note_one2many">
+                                <list string="Lignes" editable="bottom" decoration-muted="account_id == False">
+                                    <field name="account_id" required="1"/>
+                                    <field name="partner_id" optional="show"/>
+                                    <field name="name"/>
+                                    <field name="analytic_account_id" optional="hide"/>
+                                    <field name="date_maturity" optional="hide"/>
+                                    <field name="debit" sum="Total Debit"/>
+                                    <field name="credit" sum="Total Credit"/>
+                                    <field name="tax_ids" widget="many2many_tags" optional="show"/>
+                                    <field name="balance" column_invisible="1"/>
+                                    <field name="reconciled" optional="hide"/>
+                                </list>
+                            </field>
+                            <group class="oe_subtotal_footer">
+                                <field name="is_balanced" invisible="1"/>
+                                <div class="text-danger" invisible="is_balanced">
+                                    <i class="fa fa-exclamation-triangle"/> L'ecriture n'est pas equilibree
+                                </div>
+                            </group>
+                        </page>
+                        <page string="Informations facture" name="invoice_info" invisible="move_type == 'entry'">
+                            <group>
+                                <group>
+                                    <field name="amount_untaxed"/>
+                                    <field name="amount_tax"/>
+                                    <field name="amount_total"/>
+                                </group>
+                                <group>
+                                    <field name="amount_residual"/>
+                                    <field name="payment_state" widget="badge"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="narration" placeholder="Notes internes..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Recherche Ecritures -->
+    <record id="view_account_move_search" model="ir.ui.view">
+        <field name="name">account.move.custom.search</field>
+        <field name="model">account.move.custom</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher ecritures">
+                <field name="name"/>
+                <field name="ref"/>
+                <field name="partner_id"/>
+                <field name="journal_id"/>
+                <separator/>
+                <filter string="Brouillons" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Comptabilisees" name="posted" domain="[('state', '=', 'posted')]"/>
+                <filter string="Annulees" name="cancel" domain="[('state', '=', 'cancel')]"/>
+                <separator/>
+                <filter string="Factures clients" name="out_invoice" domain="[('move_type', '=', 'out_invoice')]"/>
+                <filter string="Factures fournisseurs" name="in_invoice" domain="[('move_type', '=', 'in_invoice')]"/>
+                <filter string="Ecritures diverses" name="entry" domain="[('move_type', '=', 'entry')]"/>
+                <separator/>
+                <filter string="Ce mois" name="this_month" domain="[('date', '&gt;=', (context_today() - relativedelta(day=1)).strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Grouper par">
+                    <filter string="Partenaire" name="group_partner" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Journal" name="group_journal" context="{'group_by': 'journal_id'}"/>
+                    <filter string="Etat" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Ecritures -->
+    <record id="action_account_move" model="ir.actions.act_window">
+        <field name="name">Ecritures</field>
+        <field name="res_model">account.move.custom</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_account_move_search"/>
+        <field name="context">{'default_move_type': 'entry'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Creer une nouvelle ecriture
+            </p>
+        </field>
+    </record>
+
+    <!-- Action Factures Clients -->
+    <record id="action_account_invoice_out" model="ir.actions.act_window">
+        <field name="name">Factures Clients</field>
+        <field name="res_model">account.move.custom</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_account_move_search"/>
+        <field name="domain">[('move_type', 'in', ['out_invoice', 'out_refund'])]</field>
+        <field name="context">{'default_move_type': 'out_invoice'}</field>
+    </record>
+
+    <!-- Action Factures Fournisseurs -->
+    <record id="action_account_invoice_in" model="ir.actions.act_window">
+        <field name="name">Factures Fournisseurs</field>
+        <field name="res_model">account.move.custom</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_account_move_search"/>
+        <field name="domain">[('move_type', 'in', ['in_invoice', 'in_refund'])]</field>
+        <field name="context">{'default_move_type': 'in_invoice'}</field>
+    </record>
+
+    <!-- Liste Lignes d'ecritures -->
+    <record id="view_account_move_line_list" model="ir.ui.view">
+        <field name="name">account.move.line.custom.list</field>
+        <field name="model">account.move.line.custom</field>
+        <field name="arch" type="xml">
+            <list string="Lignes d'ecriture" create="false">
+                <field name="date"/>
+                <field name="move_id"/>
+                <field name="account_id"/>
+                <field name="partner_id" optional="show"/>
+                <field name="name"/>
+                <field name="ref" optional="hide"/>
+                <field name="debit" sum="Total Debit"/>
+                <field name="credit" sum="Total Credit"/>
+                <field name="balance" sum="Solde"/>
+                <field name="amount_residual" optional="show"/>
+                <field name="reconciled" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Recherche Lignes d'ecritures -->
+    <record id="view_account_move_line_search" model="ir.ui.view">
+        <field name="name">account.move.line.custom.search</field>
+        <field name="model">account.move.line.custom</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher lignes">
+                <field name="name"/>
+                <field name="account_id"/>
+                <field name="partner_id"/>
+                <field name="move_id"/>
+                <separator/>
+                <filter string="Non lettrees" name="unreconciled" domain="[('reconciled', '=', False), ('account_id.reconcile', '=', True)]"/>
+                <filter string="Lettrees" name="reconciled" domain="[('reconciled', '=', True)]"/>
+                <group expand="0" string="Grouper par">
+                    <filter string="Compte" name="group_account" context="{'group_by': 'account_id'}"/>
+                    <filter string="Partenaire" name="group_partner" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Journal" name="group_journal" context="{'group_by': 'journal_id'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Lignes d'ecritures -->
+    <record id="action_account_move_line" model="ir.actions.act_window">
+        <field name="name">Lignes d'ecritures</field>
+        <field name="res_model">account.move.line.custom</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_account_move_line_search"/>
+    </record>
+</odoo>
